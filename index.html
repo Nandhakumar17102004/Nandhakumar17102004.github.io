@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NandhaKumar.P | ML Engineer & Researcher</title>
+    <!-- SEO & OpenGraph Meta Tags -->
+    <meta name="description" content="Portfolio of NandhaKumar P - Machine Learning Engineer & Researcher specializing in Deep Learning, Computer Vision, and AI Systems.">
+    <meta name="keywords" content="NandhaKumar P, Machine Learning, Deep Learning, AI Researcher, Computer Vision, PyTorch, TensorFlow">
+    <meta name="author" content="NandhaKumar P">
+    <meta property="og:title" content="NandhaKumar.P | ML Engineer & Researcher">
+    <meta property="og:description" content="Machine Learning Engineer & Researcher building intelligent systems, computer vision models, and deep learning frameworks.">
+    <meta property="og:type" content="website">
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Inter & Sora -->
@@ -147,6 +154,38 @@
 
         .nav-links a:hover {
             color: var(--text-main);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-2);
+            font-weight: 600;
+            position: relative;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--accent-2);
         }
 
         /* Sections */
@@ -350,11 +389,46 @@
             border-color: var(--accent-1);
         }
 
-        /* Projects */
+        /* Projects & Filter Tabs */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .filter-tab {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            color: var(--text-dim);
+            padding: 10px 22px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--accent-1), #4f46e5);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+            transform: translateY(-2px);
+        }
+
         .project-card {
             display: flex;
             flex-direction: column;
             height: 100%;
+            transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease;
+        }
+
+        .project-card.hide {
+            display: none !important;
         }
 
         .project-card h4 {
@@ -384,6 +458,47 @@
             border-radius: 4px;
         }
 
+        /* KPI Stat Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .kpi-card:hover {
+            border-color: var(--accent-2);
+            transform: translateY(-3px);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .kpi-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .kpi-label {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
         /* Certifications */
         .cert-item {
             display: flex;
@@ -401,14 +516,62 @@
             border-left: 4px solid var(--accent-1);
         }
 
+        /* Scroll Reveal (Safe without JS opacity bug) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .navbar {
-                padding: 10px 20px;
+                padding: 12px 24px;
+                border-radius: 20px;
+                width: 92%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
             }
 
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                margin-top: 10px;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: var(--glass-blur);
+                border: 1px solid var(--surface-border);
+                border-radius: 16px;
+                padding: 20px;
+                flex-direction: column;
+                gap: 16px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.mobile-open {
+                display: flex;
+                animation: fadeInDown 0.3s ease forwards;
+            }
+
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
 
             .grid-2,
@@ -421,23 +584,6 @@
                 gap: 12px;
             }
         }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate {
-            animation: fadeInUp 0.8s ease forwards;
-        }
     </style>
 </head>
 
@@ -447,20 +593,23 @@
 
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="#" class="logo">NandhaKumar.P</a>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#education">Education</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#resume">Resume</a>
+        <a href="#" class="logo">NandhaKumar</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="#about" class="nav-item active">About</a>
+            <a href="#education" class="nav-item">Education</a>
+            <a href="#experience" class="nav-item">Experience</a>
+            <a href="#research" class="nav-item">Research</a>
+            <a href="#skills" class="nav-item">Skills</a>
+            <a href="#projects" class="nav-item">Projects</a>
         </div>
     </nav>
 
     <main class="container">
         <!-- Hero Section -->
-        <section id="about" class="hero animate">
+        <section id="about" class="hero reveal active">
             <div class="hero-badge">
                 <i class="fas fa-microchip"></i> Machine Learning Engineer / Researcher
             </div>
@@ -472,18 +621,18 @@
             <a href="#projects" class="hero-cta">View My Work <i class="fas fa-arrow-right"></i></a>
 
             <div class="social-links">
-                <a href="mailto:nandhakumarponnusamy856@gmail.com" class="social-icon" title="Email"><i
+                <a href="mailto:nandhakumarponnusamy856@gmail.com" class="social-icon" title="Email" aria-label="Send Email to NandhaKumar P"><i
                         class="fas fa-envelope"></i></a>
                 <a href="https://www.linkedin.com/in/nandhakumar-ponnusamy-6015b621b/" class="social-icon"
-                    title="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/Nandhakumar17102004" class="social-icon" title="GitHub" target="_blank"><i
+                    title="LinkedIn" aria-label="NandhaKumar P LinkedIn Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Nandhakumar17102004" class="social-icon" title="GitHub" aria-label="NandhaKumar P GitHub Profile" target="_blank" rel="noopener noreferrer"><i
                         class="fab fa-github"></i></a>
-                <a href="tel:+917339676646" class="social-icon" title="Phone"><i class="fas fa-phone"></i></a>
+                <a href="tel:+917339676646" class="social-icon" title="Phone" aria-label="Call NandhaKumar P"><i class="fas fa-phone"></i></a>
             </div>
         </section>
 
         <!-- Education & Experience -->
-        <section id="education">
+        <section id="education" class="reveal">
             <div class="grid grid-2">
                 <!-- Education -->
                 <div>
@@ -528,14 +677,16 @@
                                 <div
                                     style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
                                     <h4>Machine Learning Engineer / Researcher</h4>
-                                    <span class="timeline-date">Jan 2026 - Present</span>
+                                    <span class="timeline-date">Jan 2026 - May 2026</span>
                                 </div>
-                                <p style="color: var(--accent-1); margin-bottom: 12px;">Dataconquest Research Hub,
+                                <p style="color: var(--accent-1); margin-bottom: 12px;">Data Conquest Research Hub,
                                     Coimbatore</p>
                                 <p style="font-size: 0.85rem; line-height: 1.5;">
-                                    Building end-to-end ML/DL pipelines using TensorFlow, PyTorch, and OpenCV.
-                                    Specializing in computer vision tasks, model optimization, and metric-based
-                                    evaluation (mAP, IoU, Dice).
+                                    Designed and implemented deep learning architectures using TensorFlow, PyTorch, and
+                                    OpenCV for computer vision, multimodal learning, time-series analysis, and
+                                    predictive analytics. Built scalable data pipelines and evaluated models using
+                                    Accuracy, F1, Dice, IoU, ROC-AUC, and RMSE, with ablation studies and explainable
+                                    AI techniques supporting reproducible, research-driven development.
                                 </p>
                             </div>
                         </div>
@@ -545,18 +696,18 @@
         </section>
 
         <!-- Research Work -->
-        <section id="research">
+        <section id="research" class="reveal">
             <h2 class="section-title">
                 <span>Featured Innovation</span>
                 Research Work
             </h2>
             <div class="glass-card research-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                     <h3 style="font-size: 1.5rem;">Secure Deep Learning Framework for Deepfake Detection</h3>
-                    <span class="timeline-date">Ongoing</span>
+                    <span class="timeline-date">Completed · March 2026</span>
                 </div>
-                <p style="margin-bottom: 24px; color: var(--text-dim); text-align: justify;">
-                    Developing a secure deepfake detection framework combining multiple deep learning architectures and
+                <p style="margin-bottom: 20px; color: var(--text-dim); text-align: justify;">
+                    Developed a secure deepfake detection framework combining multiple deep learning architectures and
                     a tamper-resistant deployment pipeline. The system evaluates three models: a hybrid
                     <strong>XceptionNet + Vision Transformer</strong> for combining local texture analysis with global
                     attention, <strong>VGG16</strong> enhanced with frequency-domain features to capture compression
@@ -570,11 +721,31 @@
                     <strong>Streamlit</strong> with <strong>MongoDB</strong> storage to ensure immutable detection
                     results and practical deployment.
                 </p>
+
+                <!-- KPI Stat Callouts -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-number">3+</div>
+                        <div class="kpi-label">DL Architectures (Xception+ViT, VGG16, DenseNet)</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-number">InsightFace</div>
+                        <div class="kpi-label">Custom Synthetic Deepfake Dataset</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-number">Streamlit</div>
+                        <div class="kpi-label">Real-Time Secure Web Application</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-number">MongoDB</div>
+                        <div class="kpi-label">Tamper-Resistant, Immutable Storage</div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Technical Skills -->
-        <section id="skills">
+        <section id="skills" class="reveal">
             <h2 class="section-title">
                 <span>Toolbox</span>
                 Technical Expertise
@@ -586,50 +757,85 @@
                         <span class="skill-badge">Python</span>
                         <span class="skill-badge">C++</span>
                         <span class="skill-badge">C</span>
+                        <span class="skill-badge">SQL</span>
                         <span class="skill-badge">JavaScript</span>
                         <span class="skill-badge">HTML/CSS</span>
                     </div>
                 </div>
                 <div class="glass-card skill-group">
-                    <h3>DL/ML Frameworks</h3>
+                    <h3>ML / DL Frameworks</h3>
                     <div class="skill-tags">
                         <span class="skill-badge">TensorFlow</span>
                         <span class="skill-badge">Keras</span>
                         <span class="skill-badge">PyTorch</span>
-                        <span class="skill-badge">OpenCV</span>
                         <span class="skill-badge">Scikit-learn</span>
+                        <span class="skill-badge">OpenCV</span>
                     </div>
                 </div>
                 <div class="glass-card skill-group">
                     <h3>Specialized Tech</h3>
                     <div class="skill-tags">
+                        <span class="skill-badge">CNN</span>
+                        <span class="skill-badge">RNN / LSTM</span>
+                        <span class="skill-badge">Transfer Learning</span>
                         <span class="skill-badge">Computer Vision</span>
-                        <span class="skill-badge">Deep Learning</span>
                         <span class="skill-badge">NLP</span>
-                        <span class="skill-badge">GCP</span>
-                        <span class="skill-badge">Firebase</span>
-                        <span class="skill-badge">React Native</span>
+                        <span class="skill-badge">Explainable AI</span>
                     </div>
                 </div>
                 <div class="glass-card skill-group">
                     <h3>Evaluation & Tools</h3>
                     <div class="skill-tags">
                         <span class="skill-badge">mAP / IoU / Dice</span>
-                        <span class="skill-badge">Git</span>
+                        <span class="skill-badge">ROC-AUC / RMSE</span>
+                        <span class="skill-badge">Git & GitHub</span>
+                        <span class="skill-badge">Jupyter Notebook</span>
+                        <span class="skill-badge">Google Colab</span>
+                    </div>
+                </div>
+                <div class="glass-card skill-group">
+                    <h3>Cloud — GCP & AWS</h3>
+                    <div class="skill-tags">
+                        <span class="skill-badge">GCP Compute Engine</span>
+                        <span class="skill-badge">Cloud Shell</span>
+                        <span class="skill-badge">App Engine</span>
+                        <span class="skill-badge">AWS EC2</span>
+                        <span class="skill-badge">AWS Lambda</span>
+                        <span class="skill-badge">S3 / IAM / VPC</span>
+                    </div>
+                </div>
+                <div class="glass-card skill-group">
+                    <h3>Databases & Platforms</h3>
+                    <div class="skill-tags">
+                        <span class="skill-badge">MongoDB</span>
+                        <span class="skill-badge">MySQL</span>
+                        <span class="skill-badge">DynamoDB</span>
+                        <span class="skill-badge">Firebase</span>
+                        <span class="skill-badge">React Native</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects -->
-        <section id="projects">
+        <section id="projects" class="reveal">
             <h2 class="section-title">
                 <span>Portfolio</span>
                 Key Projects
             </h2>
-            <div class="grid grid-3">
+
+            <!-- Interactive Filter Tabs -->
+            <div class="filter-container">
+                <button class="filter-tab active" data-filter="all">All Projects</button>
+                <button class="filter-tab" data-filter="aiml">AI & Machine Learning</button>
+                <button class="filter-tab" data-filter="data">Data & Analytics</button>
+                <button class="filter-tab" data-filter="systems">Systems & Algorithms</button>
+                <button class="filter-tab" data-filter="webapps">Web & Applications</button>
+            </div>
+
+            <div class="grid grid-3" id="projectsGrid">
                 <!-- Project 1: Deepfake Detection -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="aiml">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-shield-alt" style="color: var(--accent-1); font-size: 1.5rem;"></i>
                         <span class="timeline-date">Research</span>
@@ -644,15 +850,63 @@
                         <span class="project-tag">Streamlit</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/Nandhakumar17102004" target="_blank"
+                        <a href="https://drive.google.com/drive/folders/12SBofeIpI3mqVg7RJMMtzw7FUziWtmYF?usp=sharing" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
-                            <i class="fab fa-github"></i> Profile / Source
+                            <i class="fas fa-folder-open"></i> Project Files
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Predictive Maintenance IIoT -->
+                <div class="glass-card project-card" data-category="aiml">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                        <i class="fas fa-cogs" style="color: var(--accent-2); font-size: 1.5rem;"></i>
+                        <span class="timeline-date">Predictive Maintenance</span>
+                    </div>
+                    <h4>Predictive Maintenance for IIoT</h4>
+                    <p>Lightweight framework for Remaining Useful Life prediction and health-state classification on
+                        NASA N-CMAPSS sensor data, combining regime-aware gating, Graph Attention Networks, and
+                        Mamba-based temporal modeling for efficient edge deployment.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Mamba SSM</span>
+                        <span class="project-tag">Graph Attention</span>
+                        <span class="project-tag">PyTorch</span>
+                        <span class="project-tag">Edge-IIoT</span>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <a href="https://github.com/Nandhakumar17102004/AI-Enabled-Predictive-Maintenance-Framework-for-Energy-Efficient-IIoT-Systems" target="_blank" rel="noopener noreferrer"
+                            style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Retrieval-Grounded Multimodal Clinical LM -->
+                <div class="glass-card project-card" data-category="aiml">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                        <i class="fas fa-notes-medical" style="color: #34d399; font-size: 1.5rem;"></i>
+                        <span class="timeline-date">Healthcare AI</span>
+                    </div>
+                    <h4>Multimodal Clinical Language Modeling</h4>
+                    <p>Privacy-preserving healthcare framework combining Retrieval-Augmented Generation, patient-specific
+                        vector indexing, and diagnostic imaging with a local LLM for evidence-grounded, offline
+                        clinical reasoning.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">RAG</span>
+                        <span class="project-tag">Vector Indexing</span>
+                        <span class="project-tag">Local LLM</span>
+                        <span class="project-tag">Multimodal</span>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <a href="https://drive.google.com/file/d/1kiXXPzi6-I4W534q1YUKfYGQrlws48LV/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+                            style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-folder-open"></i> Project Files
                         </a>
                     </div>
                 </div>
 
                 <!-- Project 2: FitVerse -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="webapps">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-heartbeat" style="color: var(--accent-2); font-size: 1.5rem;"></i>
                         <span class="timeline-date">Health Tech</span>
@@ -666,7 +920,7 @@
                         <span class="project-tag">Google Fit API</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/gurusaran1205/FitVerse" target="_blank"
+                        <a href="https://github.com/gurusaran1205/FitVerse" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Source Code
                         </a>
@@ -674,7 +928,7 @@
                 </div>
 
                 <!-- Project 3: Drowsiness Detection -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="aiml">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-eye" style="color: #f59e0b; font-size: 1.5rem;"></i>
                         <span class="timeline-date">Computer Vision</span>
@@ -688,7 +942,7 @@
                         <span class="project-tag">NumPy</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/Nandhakumar17102004/driver-Drowsiness-" target="_blank"
+                        <a href="https://github.com/Nandhakumar17102004/driver-Drowsiness-" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Source Code
                         </a>
@@ -696,7 +950,7 @@
                 </div>
 
                 <!-- Project 4: Banking System -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="systems">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-university" style="color: #6366f1; font-size: 1.5rem;"></i>
                         <span class="timeline-date">Networking</span>
@@ -709,7 +963,7 @@
                         <span class="project-tag">Multi-threading</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/Nandhakumar17102004/computernetworkproject" target="_blank"
+                        <a href="https://github.com/Nandhakumar17102004/computernetworkproject" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Source Code
                         </a>
@@ -717,7 +971,7 @@
                 </div>
 
                 <!-- Project 5: Trie Indexing -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="systems">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-sitemap" style="color: #06b6d4; font-size: 1.5rem;"></i>
                         <span class="timeline-date">DSA</span>
@@ -731,7 +985,7 @@
                         <span class="project-tag">Algorithms</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/Nandhakumar17102004/DSA_proj" target="_blank"
+                        <a href="https://github.com/Nandhakumar17102004/DSA_proj" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Source Code
                         </a>
@@ -739,7 +993,7 @@
                 </div>
 
                 <!-- Project 6: Regex to NFA -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="systems">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-microchip" style="color: #8b5cf6; font-size: 1.5rem;"></i>
                         <span class="timeline-date">TOC</span>
@@ -752,7 +1006,7 @@
                         <span class="project-tag">Compilers</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/Nandhakumar17102004/TOC" target="_blank"
+                        <a href="https://github.com/Nandhakumar17102004/TOC" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Source Code
                         </a>
@@ -760,7 +1014,7 @@
                 </div>
 
                 <!-- Project 7: Route Planner -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="systems">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-route" style="color: #10b981; font-size: 1.5rem;"></i>
                         <span class="timeline-date">Algorithms</span>
@@ -773,7 +1027,7 @@
                         <span class="project-tag">Graph Theory</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/Nandhakumar17102004/DAA" target="_blank"
+                        <a href="https://github.com/Nandhakumar17102004/DAA" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Source Code
                         </a>
@@ -781,7 +1035,7 @@
                 </div>
 
                 <!-- Project 8: OS Simulation -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="systems">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-tasks" style="color: #f43f5e; font-size: 1.5rem;"></i>
                         <span class="timeline-date">Operating Systems</span>
@@ -794,11 +1048,11 @@
                         <span class="project-tag">Synchronization</span>
                     </div>
                     <div style="margin-top: 20px; display: flex; gap: 15px;">
-                        <a href="https://github.com/Nandhakumar17102004/OS" target="_blank"
+                        <a href="https://github.com/Nandhakumar17102004/OS" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Code
                         </a>
-                        <a href="https://sujankarthikm.github.io/dragonfly1/" target="_blank"
+                        <a href="https://sujankarthikm.github.io/dragonfly1/" target="_blank" rel="noopener noreferrer"
                             style="color: var(--accent-1); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fas fa-external-link-alt"></i> Demo
                         </a>
@@ -806,7 +1060,7 @@
                 </div>
 
                 <!-- Project 9: Solar Flare Classification -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="aiml">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-sun" style="color: #fbbf24; font-size: 1.5rem;"></i>
                         <span class="timeline-date">Deep Learning</span>
@@ -820,15 +1074,41 @@
                         <span class="project-tag">CNN</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://github.com/Nandhakumar17102004/solarflare_prediction" target="_blank"
+                        <a href="https://github.com/Nandhakumar17102004/solarflare_prediction" target="_blank" rel="noopener noreferrer"
                             style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fab fa-github"></i> Source Code
                         </a>
                     </div>
                 </div>
 
+                <!-- Project: Bank Marketing Analytics -->
+                <div class="glass-card project-card" data-category="data">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                        <i class="fas fa-chart-line" style="color: #a3e635; font-size: 1.5rem;"></i>
+                        <span class="timeline-date">Data Analytics</span>
+                    </div>
+                    <h4>Bank Marketing Analytics</h4>
+                    <p>End-to-end EDA and predictive modeling on a bank marketing dataset to estimate term-deposit
+                        subscription likelihood, with Power BI dashboards evaluating campaign performance.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Pandas</span>
+                        <span class="project-tag">Scikit-learn</span>
+                        <span class="project-tag">Power BI</span>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; gap: 15px;">
+                        <a href="https://github.com/Nandhakumar17102004/business_analytics" target="_blank" rel="noopener noreferrer"
+                            style="color: var(--text-dim); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        <a href="https://drive.google.com/file/d/1qswW76t1nDpKlFPv6iWJpcOH6BBxTDsk/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+                            style="color: var(--accent-1); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-play-circle"></i> Demo
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Project 10: CyberCrime System -->
-                <div class="glass-card project-card">
+                <div class="glass-card project-card" data-category="webapps">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                         <i class="fas fa-user-shield" style="color: #ec4899; font-size: 1.5rem;"></i>
                         <span class="timeline-date">Web System</span>
@@ -842,7 +1122,7 @@
                         <span class="project-tag">JavaScript</span>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="https://drive.google.com/file/d/1txQz8rb3O2vr2e7DPqkuL-HjYx0OUT-A/view" target="_blank"
+                        <a href="https://drive.google.com/file/d/1txQz8rb3O2vr2e7DPqkuL-HjYx0OUT-A/view" target="_blank" rel="noopener noreferrer"
                             style="color: var(--accent-1); text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
                             <i class="fas fa-play-circle"></i> View Video
                         </a>
@@ -851,73 +1131,24 @@
             </div>
         </section>
 
-        <!-- Resume Section -->
-        <section id="resume">
-            <h2 class="section-title">
-                <span>Curriculum Vitae</span>
-                Professional Resume
-            </h2>
-        
-            <div class="glass-card" style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <i class="fas fa-file-pdf" style="font-size: 3rem; color: #ef4444; margin-bottom: 20px;"></i>
-                <h3 style="margin-bottom: 12px;">Resume_new.pdf</h3>
-        
-                <p style="color: var(--text-dim); margin-bottom: 30px;">
-                    Download my latest resume for a detailed overview of my experience in Machine Learning,
-                    Deep Learning, and Research.
-                </p>
-        
-                <div style="display: flex; justify-content: center; gap: 20px;">
-                    <a href="Resume_new.pdf" target="_blank" class="hero-cta">
-                        <i class="fas fa-eye"></i> View PDF
-                    </a>
-        
-                    <a href="Resume_new.pdf" download class="hero-cta"
-                        style="background: var(--surface); color: var(--text-main);
-                        border: 1px solid var(--surface-border);">
-                        <i class="fas fa-download"></i> Download
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Certifications -->
-        <section>
-            <div class="grid grid-2">
-                <div>
-                    <h2 class="section-title" style="text-align: left; align-items: flex-start;">
-                        <span>Verified</span>
-                        Certifications
-                    </h2>
-                    <div class="glass-card">
-                        <div class="cert-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>Tata Group Data Analytics Job Simulation - Forage</span>
-                        </div>
-                        <div class="cert-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>Cloud Computing Foundations - Google Cloud</span>
-                        </div>
-                        <div class="cert-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>Deep Learning for Developers - Infosys Springboard</span>
-                        </div>
-                    </div>
+        <section id="contact" class="reveal">
+            <h2 class="section-title">
+                <span>Verified</span>
+                Certifications
+            </h2>
+            <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
+                <div class="cert-item">
+                    <i class="fas fa-certificate"></i>
+                    <span>Tata Group Data Analytics Job Simulation - Forage</span>
                 </div>
-
-                <!-- Contact CTA -->
-                <div id="contact">
-                    <h2 class="section-title" style="text-align: left; align-items: flex-start;">
-                        <span>Get in touch</span>
-                        Let's Collaborate
-                    </h2>
-                    <div class="glass-card"
-                        style="text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%;">
-                        <p style="margin-bottom: 30px; font-size: 1.1rem;">Open for research collaborations and ML
-                            engineering opportunities.</p>
-                        <a href="mailto:nandhakumarponnusamy856@gmail.com" class="hero-cta"
-                            style="align-self: center;">Send an Email</a>
-                    </div>
+                <div class="cert-item">
+                    <i class="fas fa-certificate"></i>
+                    <span>Cloud Computing Foundations - Google Cloud</span>
+                </div>
+                <div class="cert-item" style="margin-bottom: 0;">
+                    <i class="fas fa-certificate"></i>
+                    <span>Deep Learning for Developers - Infosys Springboard</span>
                 </div>
             </div>
         </section>
@@ -925,27 +1156,96 @@
 
     <footer style="padding: 60px 0; border-top: 1px solid var(--surface-border); margin-top: 60px;">
         <div class="container" style="text-align: center; color: var(--text-dim); font-size: 0.85rem;">
-            <p>&copy; 2026 NandhaKumar.P. Engineered with precision.</p>
+            <p>&copy; Designed and developed by NandhaKumar</p>
         </div>
     </footer>
 
     <script>
-        // Reveal animations on scroll
+        // 1. Mobile Navbar Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('mobile-open');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+
+            // Close mobile nav when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('mobile-open');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
+                });
+            });
+        }
+
+        // 2. Interactive Project Filtering
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filterValue = tab.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filterValue === 'all' || category === filterValue) {
+                        card.classList.remove('hide');
+                    } else {
+                        card.classList.add('hide');
+                    }
+                });
+            });
+        });
+
+        // 3. Scroll Reveal Animation without inline opacity bugs
         const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
+                    entry.target.classList.add('active');
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('section, .glass-card').forEach(el => {
-            el.style.opacity = '0';
-            observer.observe(el);
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // 4. Scroll-Spy Active Nav Link Highlight
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
 
 </html>
-
